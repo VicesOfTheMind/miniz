@@ -125,6 +125,10 @@
 /* The current downside is the times written to your archives will be from 1979. */
 /*#define MINIZ_NO_TIME */
 
+/* If MINIZ_NO_UTIME is specified then the ZIP archive functions will not be able to set the modification time. */
+/* The current downside is the modification time on extracted files will not match those in the ZIP archive. */
+/*#define MINIZ_NO_UTIME */
+
 /* Define MINIZ_NO_DEFLATE_APIS to disable all compression API's. */
 /*#define MINIZ_NO_DEFLATE_APIS */
 
@@ -157,9 +161,13 @@
 #define MINIZ_NO_ARCHIVE_WRITING_APIS
 #endif
 
+#ifdef MINIZ_NO_TIME
+#define MINIZ_NO_UTIME
+#endif
+
 #if defined(__TINYC__) && (defined(__linux) || defined(__linux__))
 /* TODO: Work around "error: include file 'sys\utime.h' when compiling with tcc on Linux */
-#define MINIZ_NO_TIME
+#define MINIZ_NO_UTIME
 #endif
 
 #include <stddef.h>
